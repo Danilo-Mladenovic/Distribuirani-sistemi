@@ -12,22 +12,22 @@ public class Client
 		InitialContext ic = new InitialContext();
 
 		TopicConnectionFactory tcf = (TopicDestinationFactory) ic.lookup("april2022");
-		this.topic = (Topic) ic.lookup("tapril2022");
+		topic = (Topic) ic.lookup("tapril2022");
 
 		ic.close();
 
-		this.tConnection = (TopicConnection) tcf.createTopicConnection();
-		this.tSession = (TopicSession) tConnection.createTopicSession(false, Sessio.AUTO_ACKNOWLEDGE);
+		tConnection = (TopicConnection) tcf.createTopicConnection();
+		tSession = (TopicSession) tConnection.createTopicSession(false, Sessio.AUTO_ACKNOWLEDGE);
 
-		this.publisher = this.tSession.createPublisher(this.topic);
-		this.subscriber = new LinkedList<>();
+		publisher = tSession.createPublisher(topic);
+		subscriber = new LinkedList<>();
 	}
 
-	public void Start(List<Proizvod> proizvodi, string artikl, double minCena, double maxCena)
+	public void Start(List<Proizvod> proizvodi, double minCena, double maxCena)
 	{
 		for (Proizvod p : proizvodi)
 		{
-			this.subscriber.add(this.tSession.createSubscriber(this.topic, "Artikl = '" + artikl + "' AND Cena < '" + maxCena + "' AND Cena > '" + minCena +"'"));
+			subscriber.add(tSession.createSubscriber(topic, "Artikl = '" + p.naziv + "' AND Cena < '" + maxCena + "' AND Cena > '" + minCena +"'", true));
 			this.subssriber.getLast().setMessageListener(new MessageListener {
 
 				@Override
@@ -37,7 +37,7 @@ public class Client
 					String naziv = msg.getStringProperty("Artikl");
 					double cena = msg.getDoubleProperty("Cena");
 
-					Symste.out.println("dsadas");
+					System.out.println("Primio");
 				}
 			this.tConnection.start();
 		}
@@ -52,12 +52,12 @@ public class Client
         this.tc.close();
     }
 
-    public void promenaStanja(Proizvod p, int cena)
+    public void promenaStanja(Proizvod p)
     {
     	Message m = this.tSession.createMessage();
     	m.setStringProperty("Proizvodjac", p.proizvodjacNaziv);
     	m.setStringProparty("Artikl", p.naziv);
-    	m.setDoubleProperty("Cena", cena);
+    	m.setDoubleProperty("Cena", p.cena);
 
     	this.publisher.send(m);
     }
@@ -67,7 +67,7 @@ public class Client
     	Client c = new Client();
     	Scanner s = new Scanner(System.in);
 
-    	String artikl = "dada";
+    	String artikl = "Kosulja";
     	Double minCena = 1600;
     	Double maxCena = 3200;
     	Double cena;
@@ -77,7 +77,7 @@ public class Client
     	while (true)
     	{
     		proizvodjac = s.nextLine().trim();
-    		if (input.equals("kraj"))
+    		if (proizvodjac.equals("kraj"))
     			break;
     		artikl = s.nextLine().trim();
     		cena = Double.parseDouble(s.nextLine().trim());
@@ -85,12 +85,30 @@ public class Client
     		lista.add(new Proizvod(proizvodjac, artikl, cena));
     	}
 
-    	c.start(lista, artikl, minCena, maxCena);
+    	c.Start(lista, minCena, maxCena);
 
     	
     	proizvodjac = s.nextLine().trim();
     	artikl = s.nextLine().trim();
     	cena = Double.parseDouble(s.nextLine().trim());
-    	c.promenaStanja(new Proizvod(proizvodjac, artikl, cena), cena);
+    	c.promenaStanja(new Proizvod(proizvodjac, artikl, cena));
+
+    	c.stop();
+    	System.exit(0);
     }
+}
+
+public class Proizvod implements Serializable {
+    public String ID;
+    public String Naziv;
+    public String Proizvodjac;
+    public double cena;
+     
+    public Proizvod(String i,String n,String p,double k)
+    {
+        ID=i;
+        Naziv=n;
+        Proizvodjac=p;
+        cena=k;
+    }   
 }
