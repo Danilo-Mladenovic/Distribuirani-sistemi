@@ -91,7 +91,7 @@ namespace April2021
 			_vlasnici = new Dicionary<string, Vlasnik>();
 		}
 
-		void Registruj(Vlasnik vlasnik, Vozila vozilo)
+		public void Registruj(Vlasnik vlasnik, Vozila vozilo)
 		{
 			if (vlasnik == null || vozilo == null)
 				return;
@@ -115,7 +115,7 @@ namespace April2021
 				});
 		}
 
-		List<Vozilo> VratiVozilaVlasnika(string jmbg)
+		public List<Vozilo> VratiVozilaVlasnika(string jmbg)
 		{
 			if (!_vlasnici.ContainsKey(jmbg))
 				return;
@@ -128,7 +128,7 @@ namespace April2021
 			return ret;
 		}
 
-		List<Vlasnik> VratiVlasnikeModela(string model)
+		public List<Vlasnik> VratiVlasnikeModela(string model)
 		{
 			List<Vlasnik> ret = new List<Vlasnik>();
 
@@ -140,7 +140,7 @@ namespace April2021
 			return ret;
 		}
 
-		List<Vozilo> VratiSvaVozila()
+		public List<Vozilo> VratiSvaVozila()
 		{
 			if (_vlasnici.IsEmpty())
 				return false;

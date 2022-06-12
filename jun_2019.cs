@@ -54,7 +54,7 @@ namespace Jun2019
 			_korisnici = new Dictionary<string, Korisnik>();
 		} 
 
-		bool Login(string ime)
+		public bool Login(string ime)
 		{
 			if (_korisnici.ContainsKey(ime))
 				return false;
@@ -71,7 +71,7 @@ namespace Jun2019
 			return true;
 		}
 
-		bool Logout(string ime)
+		public bool Logout(string ime)
 		{
 			if (!_korisnici.ContainsKey(ime))
 				return false;
@@ -88,7 +88,7 @@ namespace Jun2019
 			return true;
 		}
 
-		double ProvedenoVreme(string ime)
+		public double ProvedenoVreme(string ime)
 		{
 			if (!_korisnici.ContainsKey(ime))
 				return;
@@ -96,7 +96,7 @@ namespace Jun2019
 			return (_korisnici[ime].LoginTime - _korisnici[ime].LogoutTime).TotalHours;
 		}
 
-		List<string> SviKojiSuRadili()
+		public List<string> SviKojiSuRadili()
 		{
 			if (_korisnici.IsEmpty())
 				return;
