@@ -146,8 +146,8 @@ public class VCalcClient extends UnicastRemoteObject implements VCalcCallback
 	}
 
 	public static void main(String[] args)
-	{2
+	{
 		VCalcClient client = new VCalcClient();
-
+	
 	}
 }
