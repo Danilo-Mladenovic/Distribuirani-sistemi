@@ -152,8 +152,8 @@ public class CalcClient implements ICalcCallback
         
         Scanner s = new Scanner(System.in);
 
-        SendCalcRequest(new CalcRequest());
-        RunNextCalc();
+        c.SendCalcRequest(new CalcRequest());
+        c.RunNextCalc();
 
         s.nextLine();
         s.close();
