@@ -95,16 +95,3 @@ int main(int argc, char** argv)
 	MPI_Finalize();
 	return 0;
 }
-
-
-
-
-
-size * i + p
-
-
-0 0
-4 0
-8 0
-12 0
-
