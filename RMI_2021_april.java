@@ -1,7 +1,7 @@
 
 
 
-public class VCalcRequest extends Serializable
+public class VCalcRequest implements Serializable
 {
 	public int cID;
 	public Vector<Double> a;
