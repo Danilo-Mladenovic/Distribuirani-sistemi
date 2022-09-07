@@ -82,7 +82,7 @@ public class TaxiManager extends UnicastRemoteObject implements ITaxiManager
             {
                 taxi.address = address;
                 taxi.setTaxiStatus(false);
-                taxi.notifyTaxi(address);
+                taxi.callback.notifyTaxi(address);
                 return true;
             }
         
@@ -104,7 +104,7 @@ public class TaxiManager extends UnicastRemoteObject implements ITaxiManager
             {
                 String adr = this.addresses.pop();
                 taxi.address = adr;
-                taxi.notifyTaxi(adr);
+                taxi.callback.notifyTaxi(adr);
             }
     }
 
