@@ -101,11 +101,11 @@ public class GymReservationServer
 
     public static void main(String[] args)
     {
-        new GymReservationServer();
+        GymReservationServer server = new GymReservationServer();
 
         Scanner s = new Scanner(System.in);
         s.nextLine();
-        s.close();
+        server.close();
         System.exit(0);
     }
 }
