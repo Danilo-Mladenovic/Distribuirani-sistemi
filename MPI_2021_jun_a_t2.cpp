@@ -88,4 +88,7 @@ int main(int argc, char** argv)
 		for (int i = 0; i < k; i++)
 			printf(row_sum[i]);
     }
+
+    MPI_Finalize();
+    return 0;
 }
