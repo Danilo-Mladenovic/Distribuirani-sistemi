@@ -67,7 +67,7 @@ int main(int argc, char** argv)
     MPI_Reduce(&in, &out, 1, MPI_2INT, MPI_MAXLOCK, root, MPI_COMM_WORLD);
     MPI_Bcast(&out, 1, MPI_2INT, root, MPI_COMM_WORLD);
 
-    MPI_Reduce(&local_c[0], &local_c[0], q, MPI_INT, out.rank, MPI_COMM_WORLD);
+    MPI_Reduce(&local_c[0], &c[0], k, MPI_INT, out.rank, MPI_COMM_WORLD);
     MPI_Reduce(&local_row_sum, &final_row_sum, 1, MPI_INT, out.rank, MPI_COMM_WORLD);
 
 
