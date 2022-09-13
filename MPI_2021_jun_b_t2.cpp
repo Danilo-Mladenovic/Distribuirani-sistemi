@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     // MPI_Scatter(&b[0], l, MPI_INT, &local_b[0], l, MPI_INT, root, MPI_COMM_WORLD);
     if (rank == root)
         for (int i = 0; i < size; i++)
-            MPI_Isend(&b[0], l, MPI_INT, i, 0, MPI_COMM_WORLD, &req);
+            MPI_Isend(&b[i * l], l, MPI_INT, i, 0, MPI_COMM_WORLD, &req);
     MPI_Recv(&local_b[0], l, MPI_INT, root, 0, MPI_COMM_WORLD, &stat);
 
     
