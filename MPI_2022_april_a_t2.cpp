@@ -48,7 +48,7 @@ int main(int argc, char** argv)
                 MPI_Isend(&A[j][i * q], q, MPI_INT, i , 0, MPI_COMM_WORLD, &req);
     
     for (int i =0; i < k; i++)
-        MPI_Recv(&local_A[j][0], q, MPI_INT, root, 0, MPI_COMM_WORLD, &stat);
+        MPI_Recv(&local_A[i][0], q, MPI_INT, root, 0, MPI_COMM_WORLD, &stat);
 
     MPI_Scatter(&b[0], q, MPI_INT, &local_b[0], q, MPI_INT, root, MPI_COMM_WORLD);
 
